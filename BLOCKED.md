@@ -32,3 +32,9 @@ If worker missing: `agent worker debug`
 - [ ] Worker process left running / MSI awake
 - [ ] Max-MSI visible in iPhone Runtime picker (not only Cloud)
 - [ ] Test agent started from iPhone against Max-MSI
+
+## Update (2026-09-11)
+
+Private Cloud Agent worker `~ @ MSI` is already running on this WSL box (Cursor Agent Worker). That covers Cloud Agents on this machine.
+
+Still separate: CLI `agent login` + `agent worker start --name Max-MSI` for iPhone **My Machines / Remote Control**.
