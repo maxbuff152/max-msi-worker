@@ -1,19 +1,19 @@
 # Max-MSI worker
 
-Home repo for Cursor **My Machines** on the always-on Windows MSI.
+Bring **Max-MSI** online for Cursor iPhone **My Machines / Remote Control**.
 
-Windows-native `agent worker` is broken (better-sqlite3 ABI **127 vs 137**).
-Cursor support ticket **T-F70597**: official workaround is **WSL + Linux CLI**.
+Windows-native `agent worker` is broken (better-sqlite3 ABI 127 vs 137; Cursor ticket **T-F70597**).
+**Official workaround: WSL + Linux CLI.** Repo must live under `~/...`, not `/mnt/c`.
 
-## One paste on the MSI (recommended)
-
-PowerShell:
+## On the MSI (PowerShell)
 
 ```powershell
 irm https://raw.githubusercontent.com/maxbuff152/max-msi-worker/main/bootstrap-max-msi.ps1 | iex
 ```
 
-This prefers WSL (official). If Ubuntu is missing it installs it. Complete `agent login` in the Ubuntu window, leave it running, keep MSI awake. Then phone → environment → **Max-MSI**.
+Or double-click [`START-MAX-MSI.cmd`](./START-MAX-MSI.cmd).
+
+Then on iPhone Runtime picker → refresh → **Max-MSI**.
 
 ## Manual WSL
 
@@ -24,20 +24,6 @@ mkdir -p ~/projects && cd ~/projects
 git clone https://github.com/maxbuff152/max-msi-worker.git
 cd max-msi-worker
 bash start-max-msi.sh
-```
-
-Repo must live under `~/...` in WSL, **not** `/mnt/c/...`.
-
-## Windows-only fallback (unofficial ABI patch)
-
-```powershell
-irm https://raw.githubusercontent.com/maxbuff152/max-msi-worker/main/fix-windows-worker.ps1 | iex
-```
-
-## Autostart after first success
-
-```powershell
-irm https://raw.githubusercontent.com/maxbuff152/max-msi-worker/main/install-autostart.ps1 | iex
 ```
 
 ## Debug
