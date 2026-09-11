@@ -45,6 +45,21 @@ bash start-max-msi.sh
 
 On this MSI WSL box, prefer `~/Projects/active` (Linux disk) over `/mnt/c` or lowercase `~/projects`.
 
+### Worker dirs (2026-09-11)
+
+`start-max-msi.sh` registers these roots (see `~/bin/msi-worker-dirs.sh`):
+
+1. `~/Projects/active/SellersFirstWebsite` — SFHS site (primary)
+2. `~/Projects/active/max-msi-worker` — this infra repo
+3. `~/Projects/active/messages-loop` — Logan SMS/email ops
+
+```bash
+bash ~/bin/msi-worker-status          # show map (safe; no restart)
+bash ~/Projects/active/max-msi-worker/start-max-msi.sh   # start/restart Max-MSI
+```
+
+Prefer **one worker + multiple `--worker-dir`s** over many locked workers on the same machine.
+
 ## Why Cloud agents cannot finish this alone
 
 No self-hosted worker is registered until the MSI runs the bootstrap. Phone showing **No Personal Machines Available** is expected until then.
