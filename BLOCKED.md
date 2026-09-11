@@ -9,11 +9,11 @@ Runtime → Remote Control → **No Personal Machines Available**
 That empty state is correct today: no healthy worker is registered (cloud probe = 0).
 
 ## Why desktop Remote Control toggle alone fails on Windows
-Windows Agent CLI worker crashes after register (better-sqlite3 ABI **127 vs 137**). Cursor ticket **T-F70597**. Official workaround: **WSL + Linux CLI**.
+Windows Agent CLI worker crashes after register (`better-sqlite3` ABI **127 vs 137**). Cursor ticket **T-F70597**. Official workaround: **WSL + Linux CLI**.
 
 ## Do this on the MSI (required)
 
-**PowerShell one-liner (recommended):**
+**PowerShell one-liner:**
 ```powershell
 irm https://raw.githubusercontent.com/maxbuff152/max-msi-worker/main/bootstrap-max-msi.ps1 | iex
 ```
@@ -23,6 +23,8 @@ irm https://raw.githubusercontent.com/maxbuff152/max-msi-worker/main/bootstrap-m
 Complete login in the Ubuntu window. Leave it running. Keep MSI awake.
 
 Then on iPhone: Runtime picker → pull to refresh → select **Max-MSI**.
+
+If worker missing: `agent worker debug`
 
 ## Done checklist
 - [ ] Bootstrap ran on MSI
