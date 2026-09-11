@@ -27,9 +27,11 @@ That will:
 
 ### Then on iPhone / cursor.com/agents
 
-Environment / Runtime picker → refresh → select **Max-MSI** → start an agent.
+Environment / Runtime picker → **pull to refresh** → select **Max-MSI** → start an agent.
 
 If the worker is missing: `agent worker debug`
+
+**Still Maxwell (human clicks — not done by agents):** iPhone Runtime picker confirm · Mac TCC (Accessibility + Screen Recording for Cursor Computer Use) · Tailscale sign-in (MSI / Mac / Lenovo) · Enable Builds for SFHS. Details: [BLOCKED.md](./BLOCKED.md).
 
 ## Manual WSL steps
 
@@ -51,7 +53,7 @@ On this MSI WSL box, prefer `~/Projects/active` (Linux disk) over `/mnt/c` or lo
 
 1. `~/Projects/active/SellersFirstWebsite` — SFHS site (primary)
 2. `~/Projects/active/max-msi-worker` — this infra repo
-3. `~/Projects/active/messages-loop` — Logan SMS/email ops
+3. `~/Projects/active/messages-loop` — Mac SMS/email ops (Messages Continuity)
 
 ```bash
 bash ~/bin/msi-worker-status          # show map (safe; no restart)
