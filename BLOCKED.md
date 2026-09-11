@@ -1,27 +1,32 @@
 # BLOCKED — waiting on MSI keyboard
 
-Cloud-side work is done. **Max-MSI cannot come online until someone runs the bootstrap on the Windows PC.**
+Cloud-side work is done. **Max-MSI cannot appear in the iPhone Runtime picker until someone runs the bootstrap on the Windows PC.**
 
-## Why
-- Windows Agent CLI worker crashes: better-sqlite3 ABI 127 vs 137
-- Cursor support ticket **T-F70597**: use WSL Linux CLI until Windows package is fixed
-- This cloud agent has **no shell/RDP/Sunshine/TriggerCMD/GH runner** path to the MSI
+## What the phone shows (confirmed)
+Runtime → Remote Control → **No Personal Machines Available**  
+"Open Cursor on your computer with Remote Control enabled to register one."
 
-## Do this on the MSI (one of)
+That empty state is correct today: no healthy worker is registered (cloud probe = 0).
 
-**A. Double-click** (download first):
-[START-MAX-MSI.cmd](./START-MAX-MSI.cmd)
+## Why desktop Remote Control toggle alone fails on Windows
+Windows Agent CLI worker crashes after register (better-sqlite3 ABI **127 vs 137**). Cursor ticket **T-F70597**. Official workaround: **WSL + Linux CLI**.
 
-**B. PowerShell one-liner:**
+## Do this on the MSI (required)
+
+**PowerShell one-liner (recommended):**
 ```powershell
 irm https://raw.githubusercontent.com/maxbuff152/max-msi-worker/main/bootstrap-max-msi.ps1 | iex
 ```
 
-Then on iPhone: Agents → environment → **Max-MSI**.
+**Or double-click:** [START-MAX-MSI.cmd](./START-MAX-MSI.cmd)
+
+Complete login in the Ubuntu window. Leave it running. Keep MSI awake.
+
+Then on iPhone: Runtime picker → pull to refresh → select **Max-MSI**.
 
 ## Done checklist
 - [ ] Bootstrap ran on MSI
 - [ ] `agent login` completed (same account as phone)
 - [ ] Worker process left running / MSI awake
-- [ ] Max-MSI visible in environment picker
+- [ ] Max-MSI visible in iPhone Runtime picker (not only Cloud)
 - [ ] Test agent started from iPhone against Max-MSI
