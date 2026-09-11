@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# Show MSI worker-dir map. Does not restart a live worker.
+set -euo pipefail
+# shellcheck source=/dev/null
+source "$HOME/bin/msi-worker-dirs.sh"
+
+echo "=== MSI worker-dir map ==="
+printf '%s\n' "${MSI_WORKER_DIRS[@]}"
+echo
+echo "Existing dirs → flags:"
+msi_worker_dir_flags
+echo
+echo "Restart Max-MSI later (when no agent is mid-run):"
+echo "  bash $HOME/Projects/active/max-msi-worker/start-max-msi.sh"
+echo "Or: msi-worker-status"
