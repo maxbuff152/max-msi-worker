@@ -36,11 +36,14 @@ If the worker is missing: `agent worker debug`
 ```bash
 curl https://cursor.com/install -fsS | bash
 export PATH="$HOME/.local/bin:$PATH"
-mkdir -p ~/projects && cd ~/projects
+mkdir -p ~/Projects/active && cd ~/Projects/active
 git clone https://github.com/maxbuff152/max-msi-worker.git
 cd max-msi-worker
+# Requires: agent login (same Cursor account as iPhone), then:
 bash start-max-msi.sh
 ```
+
+On this MSI WSL box, prefer `~/Projects/active` (Linux disk) over `/mnt/c` or lowercase `~/projects`.
 
 ## Why Cloud agents cannot finish this alone
 
