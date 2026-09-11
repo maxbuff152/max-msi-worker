@@ -27,8 +27,8 @@ Then on iPhone: Runtime picker → pull to refresh → select **Max-MSI**.
 If worker missing: `agent worker debug`
 
 ## Done checklist
-- [ ] Bootstrap ran on MSI
-- [ ] `agent login` completed (same account as phone)
+- [x] Bootstrap / clone path ready on MSI WSL (`~/Projects/active/max-msi-worker`)
+- [ ] `agent login` completed (same account as phone) — **do this next**
 - [ ] Worker process left running / MSI awake
 - [ ] Max-MSI visible in iPhone Runtime picker (not only Cloud)
 - [ ] Test agent started from iPhone against Max-MSI
