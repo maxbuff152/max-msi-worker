@@ -47,13 +47,15 @@ bash start-max-msi.sh
 
 On this MSI WSL box, prefer `~/Projects/active` (Linux disk) over `/mnt/c` or lowercase `~/projects`.
 
-### Worker dirs (2026-09-11)
+### Worker dirs (2026-09-12)
 
-`start-max-msi.sh` registers these roots (see `~/bin/msi-worker-dirs.sh`):
+`start-max-msi.sh` registers **only** these three live git roots (see `~/bin/msi-worker-dirs.sh` + `~/.cursor/memory/REPOS.md`):
 
 1. `~/Projects/active/SellersFirstWebsite` — SFHS site (primary)
 2. `~/Projects/active/max-msi-worker` — this infra repo
 3. `~/Projects/active/messages-loop` — Mac SMS/email ops (Messages Continuity)
+
+Do **not** add labs, deal-packets, or archived Maximize remotes as worker dirs.
 
 ```bash
 bash ~/bin/msi-worker-status          # show map (safe; no restart)
@@ -61,6 +63,9 @@ bash ~/Projects/active/max-msi-worker/start-max-msi.sh   # start/restart Max-MSI
 ```
 
 Prefer **one worker + multiple `--worker-dir`s** over many locked workers on the same machine.
+Prefer **one repo open per chat** when possible (multi-root is confusing).
+
+Dormant GitHub remotes: `bash ~/bin/archive-dormant-github-repos.sh` (also copied here).
 
 ## Why Cloud agents cannot finish this alone
 
