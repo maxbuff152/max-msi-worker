@@ -10,6 +10,7 @@ set -euo pipefail
 ACTIVE="${HOME}/Projects/active"
 
 # Ordered: primary product first (assignment identity), then infra, then ops.
+# Canon: ONLY these three live git homes — see ~/.cursor/memory/REPOS.md
 MSI_WORKER_DIRS=(
   "${ACTIVE}/SellersFirstWebsite"
   "${ACTIVE}/max-msi-worker"
