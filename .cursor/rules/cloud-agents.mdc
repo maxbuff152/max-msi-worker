@@ -1,0 +1,13 @@
+---
+description: Cursor Cloud VM is not the MSI — do not start workers or mutate remotes
+alwaysApply: true
+metadata:
+  environments: cloud
+---
+
+You are on a **Cursor Cloud VM**, not Maxwell’s Windows/WSL box.
+
+- Do not run `agent login`, `agent worker start`, `start-max-msi.sh`, PowerShell bootstraps, or `archive-dormant-github-repos.sh`.
+- Do not install or patch the Windows Agent CLI from this VM.
+- Verify with `bash msi-worker-dirs.sh --list` and `bash -n` on edited shell scripts.
+- Leave picker / TCC / Tailscale / Builds to Maxwell (`BLOCKED.md`).

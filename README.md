@@ -2,6 +2,8 @@
 
 **Goal:** Cursor iPhone → **My Machines / Remote Control** → **Max-MSI** (always-on Windows PC).
 
+**Agents:** [AGENTS.md](./AGENTS.md) (safe vs mutating, Cloud vs MSI).
+
 ## DO THIS ON THE MSI (required)
 
 Windows-native `agent worker` is broken (`better-sqlite3` NODE_MODULE **127 vs 137**; Cursor ticket **T-F70597**). Reinstalling the Windows CLI will **not** fix it.

@@ -1,0 +1,14 @@
+---
+description: Max-MSI worker safety — read-only vs mutating, official WSL path, three live repos
+alwaysApply: true
+---
+
+This repo is **desktop-worker infra**, not an app. Prefer editing docs/scripts over running them.
+
+- Official path: **WSL Ubuntu + Linux Agent CLI**. Do not recommend Windows-native `agent worker` (ticket T-F70597).
+- Worker dirs are only `SellersFirstWebsite`, `max-msi-worker`, `messages-loop`. Do not add labs, deal-packets, or archived remotes.
+- **Safe:** read/edit this repo; `bash msi-worker-dirs.sh --list`; on MSI, `msi-worker-status`.
+- **Mutating (MSI + explicit ask only):** `start-max-msi.sh`, bootstrap/cmd, `fix-windows-worker.ps1`, `install-autostart.ps1`, `archive-dormant-github-repos.sh`.
+- Never restart Max-MSI while an agent is mid-run. Never archive the three live repos.
+- Human-only (do not mark done): iPhone Runtime picker, Mac TCC, Tailscale, Enable Builds — see `BLOCKED.md`.
+- Full map: `AGENTS.md`.
