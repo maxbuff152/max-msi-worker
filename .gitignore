@@ -1,0 +1,15 @@
+
+# ECC / agent harness (reinstallable)
+.cursor/skills/
+.cursor/agents/
+.cursor/commands/
+.cursor/rules/
+.cursor/scripts/
+.cursor/mcp-configs/
+.cursor/.agents/
+.cursor/.pi/
+.cursor/ecc-install-state.json
+.cursor/**/*.tmp
+
+# Desk-sync local publish cache
+.cache/
