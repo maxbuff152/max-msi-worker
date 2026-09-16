@@ -1,0 +1,86 @@
+{
+  "sources": {
+    "gmail": "synthetic-fixture",
+    "drive": "synthetic-fixture",
+    "synthetic": true,
+    "note": "Invented test records only. No live contacts, message IDs, or document links."
+  },
+  "emails": [
+    {
+      "id": "fixture-email-001",
+      "threadId": "fixture-thread-001",
+      "subject": "Example Seller Alpha \u2014 Example Cedar request",
+      "from": "sender@example.invalid",
+      "date": "2000-01-01T12:00:00Z",
+      "snippet": "Example Seller Alpha asks about 101 Example Cedar Dr. Contact: +1 202-555-0101.",
+      "url": "https://example.invalid/mail/fixture-thread-001"
+    },
+    {
+      "id": "fixture-email-002",
+      "threadId": "fixture-thread-002",
+      "subject": "New lead: Example Seller Beta",
+      "from": "intake@example.invalid",
+      "date": "2000-01-02T12:00:00Z",
+      "snippet": "Review the questionnaire for 202 Example Birch Ct.",
+      "url": "https://example.invalid/mail/fixture-thread-002"
+    },
+    {
+      "id": "fixture-email-noise",
+      "subject": "SYSTEM TEST \u2014 DO NOT CONTACT",
+      "from": "test@example.invalid",
+      "date": "2000-01-03T12:00:00Z",
+      "snippet": "SYSTEM TEST \u2014 DO NOT CONTACT"
+    }
+  ],
+  "driveFiles": [
+    {
+      "id": "fixture-drive-001",
+      "title": "101 Example Cedar Dr \u2014 Questionnaire.pdf",
+      "mimeType": "application/pdf",
+      "viewUrl": "https://example.invalid/drive/fixture-drive-001",
+      "modifiedTime": "2000-01-01T12:00:00Z"
+    },
+    {
+      "id": "fixture-drive-002",
+      "title": "202 Example Birch Ct \u2014 Questionnaire.pdf",
+      "mimeType": "application/pdf",
+      "viewUrl": "https://example.invalid/drive/fixture-drive-002",
+      "modifiedTime": "2000-01-01T12:00:00Z"
+    },
+    {
+      "id": "fixture-drive-003",
+      "title": "303 Example Maple Ln \u2014 Questionnaire.pdf",
+      "mimeType": "application/pdf",
+      "viewUrl": "https://example.invalid/drive/fixture-drive-003",
+      "modifiedTime": "2000-01-01T12:00:00Z"
+    },
+    {
+      "id": "fixture-drive-004",
+      "title": "303 Example Maple Ln \u2014 Advance Report",
+      "mimeType": "application/vnd.google-apps.document",
+      "viewUrl": "https://example.invalid/drive/fixture-drive-004",
+      "modifiedTime": "2000-01-01T12:00:00Z"
+    },
+    {
+      "id": "fixture-drive-005",
+      "title": "303 Example Maple Ln \u2014 Diligence Addendum",
+      "mimeType": "application/vnd.google-apps.document",
+      "viewUrl": "https://example.invalid/drive/fixture-drive-005",
+      "modifiedTime": "2000-01-01T12:00:00Z"
+    },
+    {
+      "id": "fixture-drive-006",
+      "title": "Example Deal HQ",
+      "mimeType": "application/vnd.google-apps.spreadsheet",
+      "viewUrl": "https://example.invalid/drive/fixture-drive-006",
+      "modifiedTime": "2000-01-01T12:00:00Z"
+    },
+    {
+      "id": "fixture-drive-007",
+      "title": "Example Renovation Folder",
+      "mimeType": "application/vnd.google-apps.folder",
+      "viewUrl": "https://example.invalid/drive/fixture-drive-007",
+      "modifiedTime": "2000-01-01T12:00:00Z"
+    }
+  ]
+}
