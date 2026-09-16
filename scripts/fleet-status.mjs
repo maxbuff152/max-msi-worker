@@ -25,6 +25,7 @@ const FLEET_NODE_META = {
   mac: { label: "Mac Messages", role: "iMessage · Continuity" },
   lenovo: { label: "Lenovo Matrix", role: "HAR · comps · heavy web" },
 };
+const SECRETISH = /secret|token|password|passwd|api[_-]?key|authorization|cookie|bearer|private[_-]?key|email|@/i;
 
 function hasFlag(flag) {
   return process.argv.includes(flag);
@@ -32,6 +33,12 @@ function hasFlag(flag) {
 
 function isoNow() {
   return new Date().toISOString();
+}
+
+function sanitizeDetail(value) {
+  const text = String(value == null ? "" : value).replace(/\s+/g, " ").trim().slice(0, 120);
+  if (!text || SECRETISH.test(text)) return null;
+  return text;
 }
 
 function deriveStatus(lastSeen, nowMs = Date.now()) {
@@ -84,7 +91,7 @@ function normalizePayload(nodes, generatedAt = isoNow()) {
       role: FLEET_NODE_META[id].role,
       status: lastSeen ? status : raw.status || "unknown",
       lastSeen,
-      detail: raw.detail || null,
+      detail: sanitizeDetail(raw.detail),
     };
   });
   return {
