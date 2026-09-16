@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MSI Agent Chrome — sign in</title>
+  <style>
+    :root {
+      --bg: #0f1419;
+      --panel: #1a2332;
+      --text: #e8eef7;
+      --muted: #9aa8bc;
+      --accent: #3d8bfd;
+      --ok: #3ecf8e;
+      --warn: #f0b429;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: radial-gradient(1200px 600px at 10% -10%, #1e3a5f 0%, transparent 55%),
+                  radial-gradient(900px 500px at 100% 0%, #2a1f4d 0%, transparent 50%),
+                  var(--bg);
+      color: var(--text);
+      line-height: 1.45;
+      padding: 2.5rem 1.25rem 3rem;
+    }
+    main {
+      max-width: 42rem;
+      margin: 0 auto;
+    }
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 650;
+      margin: 0 0 0.4rem;
+      letter-spacing: -0.02em;
+    }
+    .tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--ok);
+      margin-bottom: 1rem;
+    }
+    p.lead { color: var(--muted); margin: 0 0 1.5rem; }
+    section {
+      background: color-mix(in srgb, var(--panel) 92%, black);
+      border: 1px solid #2a3548;
+      border-radius: 12px;
+      padding: 1.1rem 1.2rem;
+      margin-bottom: 1rem;
+    }
+    h2 { font-size: 1rem; margin: 0 0 0.75rem; }
+    ol, ul { margin: 0; padding-left: 1.2rem; }
+    li { margin: 0.45rem 0; }
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    a:hover { text-decoration: underline; }
+    .split {
+      display: grid;
+      gap: 1rem;
+    }
+    @media (min-width: 640px) {
+      .split { grid-template-columns: 1fr 1fr; }
+    }
+    .note {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    .warn { color: var(--warn); }
+    code {
+      font-family: ui-monospace, Consolas, monospace;
+      font-size: 0.85em;
+      background: #0c1118;
+      padding: 0.1em 0.35em;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="tag">Agent lane · CDP :9333</div>
+    <h1>MSI Agent Chrome</h1>
+    <p class="lead">
+      This profile is for Cursor agents. Sign into only what you want the agent to use.
+      Keep <strong>Firefox</strong> for you (tastytrade, personal tabs).
+    </p>
+
+    <div class="split">
+      <section>
+        <h2>Sign in here (agent)</h2>
+        <ol>
+          <li><a href="https://accounts.google.com/" target="_blank" rel="noopener">Google</a> (YouTube / Drive if useful)</li>
+          <li><a href="https://accounts.spotify.com/" target="_blank" rel="noopener">Spotify</a> (web player backup)</li>
+          <li><a href="https://github.com/login" target="_blank" rel="noopener">GitHub</a> (optional)</li>
+          <li><a href="https://www.youtube.com/" target="_blank" rel="noopener">YouTube</a></li>
+        </ol>
+        <p class="note">Skip anything you do not want an agent touching.</p>
+      </section>
+      <section>
+        <h2>Stay in Firefox (you)</h2>
+        <ul>
+          <li>tastytrade / brokerage</li>
+          <li>Personal banking</li>
+          <li>Anything you do not want automated</li>
+        </ul>
+        <p class="note warn">Do not use this Chrome for HAR / Matrix / Hubzu — that stays on Lenovo.</p>
+      </section>
+    </div>
+
+    <section>
+      <h2>How agents attach</h2>
+      <ul>
+        <li>CDP: <code>http://127.0.0.1:9333</code> (WSL + Windows, mirrored localhost)</li>
+        <li>Ready: <code>msi-agent-chrome-ready</code></li>
+        <li>Profile: never wipe <code>%LOCALAPPDATA%\Maxwell\MsiAgentChrome\profile</code></li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>
