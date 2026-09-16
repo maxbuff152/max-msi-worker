@@ -1,0 +1,83 @@
+{
+  "sources": {
+    "gmail": "mcp-sample-2026-09-15",
+    "drive": "mcp-sample-2026-09-15",
+    "note": "Live-matched sample for desk-sync dry runs. Cron can overwrite with fresh MCP dumps."
+  },
+  "emails": [
+    {
+      "id": "1a09715e38f17d4f",
+      "threadId": "1a09715e38f17d4f",
+      "subject": "Ashley — we got your Sun Harbor request (compare your options)",
+      "from": "info@sellersfirsthomesolutions.com",
+      "date": "2026-09-12T19:26:29Z",
+      "snippet": "Hi Ashley, Thanks for reaching out about 14722 Sun Harbor Drive, Houston."
+    },
+    {
+      "id": "1a0a5c9156cdd9b9",
+      "threadId": "1a0a5c9156cdd9b9",
+      "subject": "New lead: Maxwell Buffamante - (346) 208-0385",
+      "from": "onboarding@resend.dev",
+      "date": "2026-09-15T15:56:52Z",
+      "snippet": "New Sellers First Lead Questionnaire pending. Review the completed questionnaire before contacting the seller."
+    },
+    {
+      "id": "noise-test",
+      "subject": "SYSTEM TEST — DO NOT CONTACT — ASTRA",
+      "from": "onboarding@resend.dev",
+      "date": "2026-09-13T01:22:19Z",
+      "snippet": "SYSTEM TEST — DO NOT CONTACT"
+    }
+  ],
+  "driveFiles": [
+    {
+      "id": "17C7fBCzbkCB_FdIpZWEU8bt22GyTftlC",
+      "title": "Website Questionnaire Packet - Ashley - 14722 Sun Harbor Drive - 2026-09-13.pdf",
+      "mimeType": "application/pdf",
+      "viewUrl": "https://drive.google.com/file/d/17C7fBCzbkCB_FdIpZWEU8bt22GyTftlC/view",
+      "modifiedTime": "2026-09-14T05:21:53Z"
+    },
+    {
+      "id": "1RGyCXwW7M-5KCikPHtPVTFtjPkQtmKWO",
+      "title": "Website Questionnaire Packet - Marisa Mendoza - 5754 Cheltenham Dr - 2026-09-10.pdf",
+      "mimeType": "application/pdf",
+      "viewUrl": "https://drive.google.com/file/d/1RGyCXwW7M-5KCikPHtPVTFtjPkQtmKWO/view",
+      "modifiedTime": "2026-09-14T05:21:53Z"
+    },
+    {
+      "id": "1NOcdJymcC9IvWiQi-cbuX9jgjU8Rr2ik",
+      "title": "Website Questionnaire Packet - Alonso Moreno Huerta - 6817 Kassarine Pass - 2026-09-10.pdf",
+      "mimeType": "application/pdf",
+      "viewUrl": "https://drive.google.com/file/d/1NOcdJymcC9IvWiQi-cbuX9jgjU8Rr2ik/view",
+      "modifiedTime": "2026-09-14T05:21:53Z"
+    },
+    {
+      "id": "1QhDZD0XiRINhWBVnZkABp0xIXNBSWNZCOe_EJee01Ok",
+      "title": "16915 Hatch Ct — Advance Report — 2026-09-11",
+      "mimeType": "application/vnd.google-apps.document",
+      "viewUrl": "https://docs.google.com/document/d/1QhDZD0XiRINhWBVnZkABp0xIXNBSWNZCOe_EJee01Ok/edit",
+      "modifiedTime": "2026-09-11T17:52:27Z"
+    },
+    {
+      "id": "1Y-1YSIsvmGTF6DD_4KX3Y22gBqmQnEBw_rTnc8ik3XU",
+      "title": "16915 Hatch Ct — Diligence Addendum — auction not started — 2026-09-13",
+      "mimeType": "application/vnd.google-apps.document",
+      "viewUrl": "https://docs.google.com/document/d/1Y-1YSIsvmGTF6DD_4KX3Y22gBqmQnEBw_rTnc8ik3XU/edit",
+      "modifiedTime": "2026-09-13T00:25:44Z"
+    },
+    {
+      "id": "17LqnTAFFzVvviGue0uYyVoHIurba6KCf3rEXabRuOGM",
+      "title": "Sellers First Deal HQ",
+      "mimeType": "application/vnd.google-apps.spreadsheet",
+      "viewUrl": "https://docs.google.com/spreadsheets/d/17LqnTAFFzVvviGue0uYyVoHIurba6KCf3rEXabRuOGM/edit",
+      "modifiedTime": "2026-09-12T07:52:52Z"
+    },
+    {
+      "id": "17XZRfOaCWte2F2qtJU72hG0lIKouJfRA",
+      "title": "2026-09 - Fallen Oaks Transformation - APPROVED V9",
+      "mimeType": "application/vnd.google-apps.folder",
+      "viewUrl": "https://drive.google.com/drive/folders/17XZRfOaCWte2F2qtJU72hG0lIKouJfRA",
+      "modifiedTime": "2026-09-03T19:14:51Z"
+    }
+  ]
+}
