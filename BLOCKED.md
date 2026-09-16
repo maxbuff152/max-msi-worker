@@ -5,6 +5,8 @@ Cloud + MSI WSL work is done. **Pull to refresh on iPhone Runtime picker** and p
 ## Why not Windows-native worker
 Windows Agent CLI crashes after register (`better-sqlite3` ABI **127 vs 137**). Cursor ticket **T-F70597**. Official workaround: **WSL + Linux CLI**.
 
+Desktop symptom: Agents stuck on **Preparing request** while Windows `cursor-agent-worker-*` crash-loops. Mitigation (2026-09-16): park + quarantine via `park-windows-agent-workers.ps1` / task `Cursor-Park-Windows-Agent-Workers`. Start tasks on **MSI** (WSL), not Windows Local. See `docs/ops-desktop-preparing-stuck-2026-09-16.md`.
+
 ## Devices (household)
 | Device | Worker(s) | Notes |
 |--------|-----------|-------|
