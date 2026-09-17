@@ -1,5 +1,5 @@
 # Soft-heal Cursor WSL terminal indefinite hangs (no WSL shutdown, no PC reboot).
-# Prefers the Python patcher (surgical JSON). Falls back message if python missing.
+# Prefers the Python patcher (surgical JSON).
 #
 #   powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\fix-wsl-cursor-terminal.ps1
 
@@ -13,12 +13,11 @@ if (-not $python) {
   $python = Get-Command python3 -ErrorAction SilentlyContinue
 }
 if (-not $python) {
-  $wslPy = "\\wsl$\Ubuntu-24.04\usr\bin\python3"
-  if (Test-Path -LiteralPath $wslPy) {
-    & wsl.exe -d Ubuntu-24.04 -u maxwell -- python3 $py
-    exit $LASTEXITCODE
-  }
-  throw "python/python3 not found. Open WSL and run: python3 ~/Projects/active/max-msi-worker/fix-wsl-cursor-terminal.py"
+  throw @"
+No Windows Python found.
+From WSL run:
+  python3 ~/Projects/active/max-msi-worker/fix-wsl-cursor-terminal.py
+"@
 }
 
 & $python.Source $py

@@ -41,7 +41,16 @@ def main() -> int:
     shutil.copy2(path, backup)
 
     raw = path.read_text(encoding="utf-8")
-    data = json.loads(raw)
+    try:
+        data = json.loads(raw)
+    except json.JSONDecodeError as exc:
+        print(
+            f"ERROR: Cursor settings JSON is corrupt: {path}\n"
+            f"Backup already saved at: {backup}\n"
+            f"Parser detail: {exc}",
+            file=sys.stderr,
+        )
+        return 1
 
     wsl_args = ["-d", "Ubuntu-24.04", "-u", "maxwell"]
     profiles = data.setdefault("terminal.integrated.profiles.windows", {})
