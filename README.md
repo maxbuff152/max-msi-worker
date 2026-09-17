@@ -76,3 +76,13 @@ See [BLOCKED.md](./BLOCKED.md).
 ## Agent brain trim (2026-09-17)
 
 Keep the three worker dirs; do not reinstall full ECC language packs into repos. See [docs/agent-brain-trim.md](./docs/agent-brain-trim.md) and `~/.cursor/memory/simple-operating-model.md`.
+
+## WSL Cursor terminal hang (2026-09-17)
+
+If the Windows Cursor terminal / agent shell spins forever after a finished command:
+
+```bash
+python3 ~/Projects/active/max-msi-worker/fix-wsl-cursor-terminal.py
+```
+
+Then kill stuck terminals → **Developer: Reload Window** (no PC/`wsl --shutdown`). Details: [docs/ops-wsl-cursor-terminal-hang.md](./docs/ops-wsl-cursor-terminal-hang.md).
