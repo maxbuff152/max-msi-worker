@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+# Open one Linux git home in Cursor via Remote-WSL (Windows Cursor host).
+# Prefer this over opening D:\WSL, D:\Repos\*, or \\wsl$\ paths in a Windows window.
+#
+#   open-cursor-wsl                 # SellersFirstWebsite
+#   open-cursor-wsl site|worker|msg
+#   open-cursor-wsl /absolute/path
+set -euo pipefail
+
+ACTIVE="$HOME/Projects/active"
+DISTRO="Ubuntu-24.04"
+
+case "${1:-site}" in
+  site|website|sfhs) TARGET="$ACTIVE/SellersFirstWebsite" ;;
+  worker|infra)      TARGET="$ACTIVE/max-msi-worker" ;;
+  msg|messages|ops)  TARGET="$ACTIVE/messages-loop" ;;
+  /*)                TARGET="$1" ;;
+  *)
+    echo "Usage: open-cursor-wsl [site|worker|msg|/absolute/path]"
+    exit 2
+    ;;
+esac
+
+if [[ ! -d "$TARGET" ]]; then
+  echo "error: missing $TARGET" >&2
+  exit 1
+fi
+
+# Resolve to real path so Remote-WSL does not open through the website symlink.
+TARGET="$(readlink -f "$TARGET")"
+URI="vscode-remote://wsl+${DISTRO}${TARGET}"
+
+WIN_CURSOR="/mnt/c/Users/maxwe/AppData/Local/Programs/cursor/Cursor.exe"
+if [[ ! -x "$WIN_CURSOR" ]]; then
+  echo "error: Cursor.exe not found at $WIN_CURSOR" >&2
+  exit 1
+fi
+
+echo "Opening (Remote-WSL, one repo): $TARGET"
+# Use cmd start so this returns immediately and does not block the shell.
+/mnt/c/Windows/System32/cmd.exe /c start "" "C:\Users\maxwe\AppData\Local\Programs\cursor\Cursor.exe" --folder-uri "$URI" >/dev/null 2>&1 || \
+  "$WIN_CURSOR" --folder-uri "$URI" >/dev/null 2>&1 &
+echo "URI: $URI"
+echo "Tip: one repo per chat. Do not open D:\\WSL for coding."

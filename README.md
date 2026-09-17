@@ -86,3 +86,13 @@ python3 ~/Projects/active/max-msi-worker/fix-wsl-cursor-terminal.py
 ```
 
 Then kill stuck terminals → **Developer: Reload Window** (no PC/`wsl --shutdown`). Details: [docs/ops-wsl-cursor-terminal-hang.md](./docs/ops-wsl-cursor-terminal-hang.md).
+
+## Desk hygiene (open Cursor right)
+
+```bash
+open-cursor-wsl site|worker|msg          # Remote-WSL, one repo
+bash start-max-msi.sh --restart          # canonical SellersFirstWebsite dirs
+bash ~/bin/msi-worker-status             # show map (safe)
+```
+
+Do **not** open `D:\WSL` for coding. Full note: [docs/ops-msi-desk-hygiene.md](./docs/ops-msi-desk-hygiene.md).

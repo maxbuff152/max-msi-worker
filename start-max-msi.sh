@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 # Start Max-MSI My Machines worker without conflicting with private worker ~ @ MSI.
 # Registers SFHS site + this repo + messages-loop via repeatable --worker-dir.
+#
+#   bash start-max-msi.sh           # start if missing
+#   bash start-max-msi.sh --restart # soft-restart tmux worker (no PC / wsl --shutdown)
 set -euo pipefail
 export PATH="$HOME/.local/bin:$PATH"
 export AGENT_CLI_CREDENTIAL_STORE=file
@@ -19,10 +22,30 @@ if ! agent whoami >/dev/null 2>&1; then
 fi
 
 SESSION=max-msi-worker
+RESTART=0
+case "${1:-}" in
+  --restart|-r) RESTART=1 ;;
+  "" ) ;;
+  *)
+    echo "Usage: $0 [--restart]"
+    exit 2
+    ;;
+esac
+
 if tmux has-session -t "$SESSION" 2>/dev/null; then
-  echo "tmux session $SESSION already exists — logs:"
-  tmux capture-pane -t "$SESSION" -p -J -S -20
-  exit 0
+  if [[ "$RESTART" -eq 0 ]]; then
+    echo "tmux session $SESSION already exists — logs:"
+    tmux capture-pane -t "$SESSION" -p -J -S -20
+    echo
+    echo "Canonical dirs (restart to apply):"
+    printf '  %s\n' "${MSI_WORKER_DIRS[@]}"
+    echo "Soft-restart: bash $ROOT/start-max-msi.sh --restart"
+    exit 0
+  fi
+  echo "Stopping tmux session $SESSION (soft worker restart)…"
+  tmux kill-session -t "$SESSION" || true
+  # Give the old agent process a moment to release locks.
+  sleep 2
 fi
 
 tmux new-session -d -s "$SESSION" -c "$HOME/Projects/active" -- bash -lc "

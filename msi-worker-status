@@ -5,11 +5,17 @@ set -euo pipefail
 source "$HOME/bin/msi-worker-dirs.sh"
 
 echo "=== MSI worker-dir map ==="
-printf '%s\n' "${MSI_WORKER_DIRS[@]}"
+msi_worker_list
 echo
-echo "Existing dirs → flags:"
+echo "Flags:"
 msi_worker_dir_flags
 echo
-echo "Restart Max-MSI later (when no agent is mid-run):"
-echo "  bash $HOME/Projects/active/max-msi-worker/start-max-msi.sh"
-echo "Or: msi-worker-status"
+if pgrep -af 'agent.*worker start.*Max-MSI' >/dev/null 2>&1; then
+  echo "Live Max-MSI process:"
+  pgrep -af 'agent.*worker start.*Max-MSI' || true
+else
+  echo "Live Max-MSI process: (none)"
+fi
+echo
+echo "Soft-restart (applies canonical dirs; drops in-flight Max-MSI agents):"
+echo "  bash $HOME/Projects/active/max-msi-worker/start-max-msi.sh --restart"
