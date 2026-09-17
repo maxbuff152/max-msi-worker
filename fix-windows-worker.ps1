@@ -1,12 +1,11 @@
-# Max-MSI — Windows ABI patch + start My Machines worker
-# Unofficial workaround for Cursor Windows better-sqlite3 127 vs 137 bug.
-# Prefer WSL (official). Use this if you want to stay on native Windows.
+# DEPRECATED — DO NOT RUN.
+# Windows agent-worker is ABI-broken (better-sqlite3 127 vs 137, T-F70597).
+# Use WSL Max-MSI instead: bash ~/Projects/active/max-msi-worker/start-max-msi.sh
+# Soft-heal parks Windows workers via park-windows-agent-workers.ps1.
+# Kept only as historical reference. Maxwell must explicitly ask before using this.
 #
-# Usage (PowerShell):
+# Usage (PowerShell) — discouraged:
 #   irm https://raw.githubusercontent.com/maxbuff152/max-msi-worker/main/fix-windows-worker.ps1 | iex
-# Or:
-#   Set-ExecutionPolicy -Scope Process Bypass -Force
-#   .\fix-windows-worker.ps1
 
 $ErrorActionPreference = "Stop"
 $WorkerName = "Max-MSI"

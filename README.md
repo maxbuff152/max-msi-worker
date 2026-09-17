@@ -2,6 +2,10 @@
 
 **Goal:** Cursor iPhone → **My Machines / Remote Control** → **Max-MSI** (always-on Windows PC).
 
+Phone picker: pick **Max-MSI** (may also show as **MSI**). Wire name is always `Max-MSI`. See [PHONE.md](./PHONE.md).
+
+Soft-heal: `repair-max-msi.sh` (watcher every ~10 min) keeps Max-MSI up and parks broken Windows workers. Ops notes: [docs/ops-desktop-preparing-stuck-2026-09-16.md](./docs/ops-desktop-preparing-stuck-2026-09-16.md), [docs/ops-agent-error-fix-2026-09-15.md](./docs/ops-agent-error-fix-2026-09-15.md).
+
 ## DO THIS ON THE MSI (required)
 
 Windows-native `agent worker` is broken (`better-sqlite3` NODE_MODULE **127 vs 137**; Cursor ticket **T-F70597**). Reinstalling the Windows CLI will **not** fix it.
@@ -72,3 +76,7 @@ Dormant GitHub remotes: `bash ~/bin/archive-dormant-github-repos.sh` (also copie
 No self-hosted worker is registered until the MSI runs the bootstrap. Phone showing **No Personal Machines Available** is expected until then.
 
 See [BLOCKED.md](./BLOCKED.md).
+
+## Agent brain trim (2026-09-17)
+
+Keep the three worker dirs; do not reinstall full ECC language packs into repos. See [docs/agent-brain-trim.md](./docs/agent-brain-trim.md) and `~/.cursor/memory/simple-operating-model.md`.

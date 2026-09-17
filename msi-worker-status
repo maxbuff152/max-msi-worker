@@ -1,15 +1,19 @@
 #!/usr/bin/env bash
-# Show MSI worker-dir map. Does not restart a live worker.
+# Show MSI worker-dir map and whether Max-MSI is actually running.
 set -euo pipefail
 # shellcheck source=/dev/null
-source "$HOME/bin/msi-worker-dirs.sh"
+source "$HOME/bin/msi-worker-dirs.sh" 2>/dev/null || source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/msi-worker-dirs.sh"
 
-echo "=== MSI worker-dir map ==="
-printf '%s\n' "${MSI_WORKER_DIRS[@]}"
+echo "=== MSI phone label ==="
+msi_worker_list
 echo
-echo "Existing dirs → flags:"
+echo "=== flags ==="
 msi_worker_dir_flags
 echo
-echo "Restart Max-MSI later (when no agent is mid-run):"
-echo "  bash $HOME/Projects/active/max-msi-worker/start-max-msi.sh"
-echo "Or: msi-worker-status"
+echo "=== tmux ==="
+tmux list-sessions 2>/dev/null | grep -E 'msi-workers|max-msi-worker' || echo '(no max-msi-worker session)'
+echo
+echo "=== agent processes ==="
+pgrep -af 'worker start --name (Max-MSI|MSI)' || echo '(none)'
+echo
+echo "Restart: bash $HOME/Projects/active/max-msi-worker/start-max-msi.sh --restart"

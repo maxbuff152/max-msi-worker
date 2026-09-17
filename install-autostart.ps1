@@ -1,5 +1,9 @@
-# Register Max-MSI worker to auto-start at Windows logon (after first successful patch/login).
-# Run once in PowerShell (can be non-admin for current-user task):
+# DEPRECATED for Windows-native workers — DO NOT USE as the primary path.
+# Canonical autostart is WSL: Windows task Cursor-Max-MSI-WSL-Worker → start-max-msi.sh
+# Soft-heal: Cursor-Max-MSI-WSL-Worker-Watcher → repair-max-msi.sh
+# This script registers a Windows-native worker task and will revive the ABI-broken path.
+#
+# Usage (PowerShell) — discouraged:
 #   irm https://raw.githubusercontent.com/maxbuff152/max-msi-worker/main/install-autostart.ps1 | iex
 
 $ErrorActionPreference = "Stop"
