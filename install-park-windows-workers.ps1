@@ -29,9 +29,9 @@ $action = New-ScheduledTaskAction `
   -Argument "-NoProfile -ExecutionPolicy Bypass -File `"$LocalScript`"" `
   -WorkingDirectory $LocalDir
 
-# Soft heal every 5 minutes for ~10 years; also at logon
+# Soft heal every 10 minutes for ~10 years; also at logon
 $triggerRepeat = New-ScheduledTaskTrigger -Once -At (Get-Date).AddMinutes(1) `
-  -RepetitionInterval (New-TimeSpan -Minutes 5) `
+  -RepetitionInterval (New-TimeSpan -Minutes 10) `
   -RepetitionDuration (New-TimeSpan -Days 3650)
 $triggerLogon = New-ScheduledTaskTrigger -AtLogOn
 
@@ -40,7 +40,7 @@ $settings = New-ScheduledTaskSettingsSet `
   -DontStopIfGoingOnBatteries `
   -StartWhenAvailable `
   -MultipleInstances IgnoreNew `
-  -ExecutionTimeLimit (New-TimeSpan -Minutes 5)
+  -ExecutionTimeLimit (New-TimeSpan -Minutes 8)
 
 $principal = New-ScheduledTaskPrincipal -UserId $env:USERNAME -LogonType Interactive -RunLevel Limited
 

@@ -123,6 +123,25 @@ else
   fail "install-autostart.ps1 missing WSL / deprecation warning"
 fi
 
+if grep -q 'GetFolderPath("UserProfile")' "$ROOT/park-windows-agent-workers.sh" \
+  && ! grep -q '/Users/Maxwe/' "$ROOT/park-windows-agent-workers.sh"; then
+  pass "park shim derives USERPROFILE (no hardcoded Maxwe)"
+else
+  fail "park shim still hardcodes username path"
+fi
+
+if grep -q 'Already parked' "$ROOT/park-windows-agent-workers.ps1"; then
+  pass "park.ps1 skips when already clean"
+else
+  fail "park.ps1 missing already-parked short-circuit"
+fi
+
+if ! grep -qE 'email\|@/i|email\|@/' "$ROOT/scripts/fleet-status.mjs"; then
+  pass "fleet SECRETISH no bare @"
+else
+  fail "fleet SECRETISH still has bare @"
+fi
+
 # Soft Windows park status (warn only — Cursor may hold agent-cli open)
 if [[ -x /mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe ]]; then
   PARK_STATUS="$(/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -NoProfile -Command "

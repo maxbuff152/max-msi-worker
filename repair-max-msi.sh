@@ -22,7 +22,8 @@ fi
 
 worker_alive() {
   # Exact single-brain worker (not old MSI Website / Infra / Messages).
-  pgrep -f "worker start --name ${WIRE_NAME}( |$)" >/dev/null 2>&1
+  # Max-MSI does not share a prefix collision with legacy name MSI.
+  pgrep -f "worker start --name ${WIRE_NAME}" >/dev/null 2>&1
 }
 
 need_restart=0

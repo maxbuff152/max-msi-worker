@@ -25,7 +25,7 @@ const FLEET_NODE_META = {
   mac: { label: "Mac Messages", role: "iMessage · Continuity" },
   lenovo: { label: "Lenovo Matrix", role: "HAR · comps · heavy web" },
 };
-const SECRETISH = /secret|token|password|passwd|api[_-]?key|authorization|cookie|bearer|private[_-]?key|email|@/i;
+const SECRETISH = /secret|token|password|passwd|api[_-]?key|authorization|cookie|bearer|private[_-]?key|\bemail\b|\b[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}\b/i;
 
 function hasFlag(flag) {
   return process.argv.includes(flag);

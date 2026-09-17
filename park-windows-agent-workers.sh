@@ -18,12 +18,19 @@ if [[ ! -f "$PS1" ]]; then
   exit 0
 fi
 
-# Prefer a Windows-local copy so PowerShell does not depend on \\wsl$ quirks.
-WIN_COPY="/mnt/c/Users/Maxwe/projects/max-msi-worker-ops/park-windows-agent-workers.ps1"
-mkdir -p "/mnt/c/Users/Maxwe/projects/max-msi-worker-ops" 2>/dev/null || true
-if cp -f "$PS1" "$WIN_COPY" 2>/dev/null; then
-  :
-else
+# Prefer a Windows-local copy under %USERPROFILE% (no hardcoded username).
+WIN_PROFILE="$("$PWSH" -NoProfile -Command '[Environment]::GetFolderPath("UserProfile")' 2>/dev/null | tr -d '\r')"
+WIN_COPY=""
+if [[ -n "${WIN_PROFILE}" ]]; then
+  WIN_OPS_DIR="$(wslpath -u "$WIN_PROFILE" 2>/dev/null)/projects/max-msi-worker-ops"
+  if [[ -n "${WIN_OPS_DIR}" && "${WIN_OPS_DIR}" != "/projects/max-msi-worker-ops" ]]; then
+    mkdir -p "$WIN_OPS_DIR" 2>/dev/null || true
+    if cp -f "$PS1" "$WIN_OPS_DIR/park-windows-agent-workers.ps1" 2>/dev/null; then
+      WIN_COPY="$WIN_OPS_DIR/park-windows-agent-workers.ps1"
+    fi
+  fi
+fi
+if [[ -z "$WIN_COPY" ]]; then
   WIN_COPY="$PS1"
 fi
 

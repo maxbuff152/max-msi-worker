@@ -26,6 +26,39 @@ if (-not (Test-Path $WorkerRoot)) {
   exit 0
 }
 
+$Note = Join-Path $WorkerRoot "DO-NOT-USE-WINDOWS-WORKER.txt"
+$AgentCli = Join-Path $WorkerRoot "agent-cli"
+$Force = ($args -contains "-Force") -or ($env:FORCE_PARK_WINDOWS_WORKERS -eq "1")
+
+function Test-WorkerProcessPresent {
+  $hit = $false
+  Get-CimInstance Win32_Process | Where-Object {
+    $c = $_.CommandLine
+    if ([string]::IsNullOrEmpty($c)) { return $false }
+    if (Test-ProtectedCommand $c) { return $false }
+    return (
+      $c -like "*anysphere.cursor-agent-worker*" -or
+      $c -like "*cursor-agent-worker-*" -or
+      ($_.Name -eq "node.exe" -and $c -like "*cursor-agent-worker*")
+    )
+  } | ForEach-Object { $hit = $true }
+  return $hit
+}
+
+$liveMarkers = @(Get-ChildItem -Path $WorkerRoot -File -ErrorAction SilentlyContinue |
+  Where-Object { $_.Extension -in ".spec", ".pid", ".install" })
+$cliItem = Get-Item -LiteralPath $AgentCli -ErrorAction SilentlyContinue
+$cliIsFileStub = ($null -ne $cliItem) -and (-not $cliItem.PSIsContainer)
+$noteOk = Test-Path $Note
+$procsPresent = Test-WorkerProcessPresent
+
+# Skip noisy full park when already clean (watcher runs ~every 10 min).
+# Still re-park if markers/procs return, or agent-cli is a directory again.
+if (-not $Force -and $noteOk -and $cliIsFileStub -and ($liveMarkers.Count -eq 0) -and (-not $procsPresent)) {
+  Write-Host "Already parked (note + agent-cli stub + 0 markers); skip" -ForegroundColor DarkGray
+  exit 0
+}
+
 New-Item -ItemType Directory -Force -Path $ParkDir | Out-Null
 
 # 1) Kill only Cursor Windows worker processes (never trading)
@@ -61,7 +94,6 @@ Get-ChildItem -Path $WorkerRoot -File -ErrorAction SilentlyContinue |
 Write-Host ("Parked markers: {0}" -f $moved)
 
 # 3) Quarantine broken Windows agent-cli so new workers fail closed (not hang Preparing)
-$AgentCli = Join-Path $WorkerRoot "agent-cli"
 $AgentCliParked = Join-Path $WorkerRoot "agent-cli.PARKED-ABI-BROKEN"
 
 if ((Test-Path $AgentCli) -and (Get-Item -LiteralPath $AgentCli).PSIsContainer) {
@@ -86,7 +118,6 @@ if ($null -eq $item) {
 }
 
 # 4) Leave a blocker note Cursor/users can see
-$Note = Join-Path $WorkerRoot "DO-NOT-USE-WINDOWS-WORKER.txt"
 @"
 Windows Cursor agent-worker is PARKED on purpose.
 
