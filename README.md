@@ -72,3 +72,7 @@ Dormant GitHub remotes: `bash ~/bin/archive-dormant-github-repos.sh` (also copie
 No self-hosted worker is registered until the MSI runs the bootstrap. Phone showing **No Personal Machines Available** is expected until then.
 
 See [BLOCKED.md](./BLOCKED.md).
+
+## Agent brain trim (2026-09-17)
+
+Keep the three worker dirs; do not reinstall full ECC language packs into repos. See [docs/agent-brain-trim.md](./docs/agent-brain-trim.md) and `~/.cursor/memory/simple-operating-model.md`.
