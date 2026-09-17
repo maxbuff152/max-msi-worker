@@ -1,0 +1,46 @@
+{
+  "policy": "do_not_interrupt_now",
+  "now_playing_left_alone": true,
+  "mix_rule": "scheduled rotates pick a different weighted source than last; keep it fire",
+  "remaining_today_mix_order_hint": [
+    {
+      "id": "logan-orbit-artists",
+      "label": "Everybody around Logan/DeeBaby (artist search)",
+      "uri": "spotify:search:DeeBaby%20Millyz%20BigWalkDog%20THE%20REAL%201%20Mg%20Lil%20Bubba%20xCamden%20NoHeart%20Shad"
+    },
+    {
+      "id": "drake-wayne-mix",
+      "label": "Drake Mix (feat Lil Wayne / Young Money)",
+      "uri": "spotify:playlist:37i9dQZF1EIWR2Z7ggXEKn"
+    },
+    {
+      "id": "htown",
+      "label": "H-Town frequency (SFHS)",
+      "uri": "spotify:playlist:6EN5jR0b57rqUaGuCoZhtD"
+    },
+    {
+      "id": "deebaby-hardest",
+      "label": "DeeBaby's hardest tracks (Logan library)",
+      "uri": "spotify:playlist:3w55ItlH4pvaQbxoLsXtrj"
+    },
+    {
+      "id": "this-is-deebaby",
+      "label": "This Is DeeBaby",
+      "uri": "spotify:playlist:37i9dQZF1DZ06evO3J7nih"
+    },
+    {
+      "id": "deebaby-artist-mix",
+      "label": "DeeBaby Mix (Millyz / BigWalkDog / THE REAL 1)",
+      "uri": "spotify:playlist:37i9dQZF1EIY03vGf03WmY"
+    },
+    {
+      "id": "drake-wayne-search",
+      "label": "Drake + Lil Wayne search",
+      "uri": "spotify:search:Drake%20Lil%20Wayne"
+    }
+  ],
+  "next_scheduled": [
+    "17:00 rotate",
+    "19:00 stop"
+  ]
+}
