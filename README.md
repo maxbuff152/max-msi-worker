@@ -16,6 +16,8 @@ Pull to refresh on [cursor.com/agents](https://cursor.com/agents) after restart.
 
 Windows-native `agent worker` is broken (`better-sqlite3` NODE_MODULE **127 vs 137**; Cursor ticket **T-F70597**). Reinstalling the Windows CLI will **not** fix it.
 
+Desktop hang **Preparing request** = Windows worker crash-loop. Soft-heal: `park-windows-agent-workers.ps1` via `repair-max-msi.sh` watcher. Start tasks on **MSI** (WSL) / [cursor.com/agents](https://cursor.com/agents).
+
 **Official path: WSL Ubuntu + Linux Agent CLI.** Clone into the WSL home filesystem — **not** `/mnt/c/...`.
 
 ### Fastest (PowerShell on MSI)

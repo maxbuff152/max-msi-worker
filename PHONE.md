@@ -17,7 +17,11 @@ One WSL brain worker. One Runtime row for new work.
 - Logon autostart: Windows task `Cursor-Max-MSI-WSL-Worker`
 - Self-heal every ~10 min: `Cursor-Max-MSI-WSL-Worker-Watcher` → `repair-max-msi.sh`
 - Windows Cursor worker under `D:\CODEX SPINE…` is **parked** (specs moved aside) — do not revive it as a second MSI brain
+- Desktop “Preparing request” hang: `repair-max-msi.sh` watcher also runs `park-windows-agent-workers.sh` (~10 min, trade-safe). Do not revive Windows Local workers.
 - Old Cloudflare Site / Remote Bridge stays **Disabled**
+
+## Start tasks from the PC
+Use [cursor.com/agents](https://cursor.com/agents) or Agents Window → pick **MSI**. Never Local / This computer / CODEX SPINE (Windows worker is ABI-broken).
 
 ## Grok Bot / sand clocks
 Stuck schedules that spawned ERROR agents (iMessage ROWID poll, Max-MSI up/down probe, weekday health) were archived. Keep Grok Bot clocks that spawn private-worker Cursor agents **parked** unless retargeted to **MSI** (or Mac for iMessage). Glass Automation keepers: Slack Digest only.
