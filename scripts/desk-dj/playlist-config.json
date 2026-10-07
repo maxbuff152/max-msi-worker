@@ -1,0 +1,116 @@
+{
+  "name": "SFHS Desk DJ",
+  "timezone": "America/Chicago",
+  "window": { "start": "09:00", "stop": "19:00" },
+  "shuffle_sources_daily": true,
+  "rotate_hours": [9, 11, 13, 15, 17],
+  "notes": [
+    "Spotify desktop only (MSI).",
+    "DeeBaby + Logan DeeBaby playlists mined from local Spotify cache 2026-09-16.",
+    "H-Town = SFHS site soundtrack.",
+    "Drake/Wayne = desk ask + Drake Mix with Lil Wayne from library.",
+    "everybody_in_logan_orbit = artists spotted on DeeBaby Mix radios (play whole playlists + artist searches)."
+  ],
+  "sources": [
+    {
+      "id": "deebaby-hardest",
+      "label": "DeeBaby's hardest tracks (Logan library)",
+      "uri": "spotify:playlist:3w55ItlH4pvaQbxoLsXtrj",
+      "from": "Spotify local cache — Logan/Maxwell library",
+      "weight": 5
+    },
+    {
+      "id": "deebaby-mix-fire",
+      "label": "Deebaby Mix (library)",
+      "uri": "spotify:playlist:0sDqhi0r8Lp020TesqC1OU",
+      "from": "Spotify local cache",
+      "weight": 4
+    },
+    {
+      "id": "deebaby-playlist-20",
+      "label": "Deebaby Playlist (library)",
+      "uri": "spotify:playlist:1NUB1RGdWOGRAYeYDLXgaT",
+      "from": "Spotify local cache",
+      "weight": 4
+    },
+    {
+      "id": "deebaby-70",
+      "label": "Deebaby (library)",
+      "uri": "spotify:playlist:70iNBdg66N2iD3K6oSTDK3",
+      "from": "Spotify local cache",
+      "weight": 3
+    },
+    {
+      "id": "this-is-deebaby",
+      "label": "This Is DeeBaby",
+      "uri": "spotify:playlist:37i9dQZF1DZ06evO3J7nih",
+      "from": "Spotify official This Is",
+      "weight": 4
+    },
+    {
+      "id": "deebaby-artist-mix",
+      "label": "DeeBaby Mix (Millyz / BigWalkDog / THE REAL 1)",
+      "uri": "spotify:playlist:37i9dQZF1EIY03vGf03WmY",
+      "from": "Spotify artist-mix — everybody around DeeBaby",
+      "weight": 4
+    },
+    {
+      "id": "deebaby-artist",
+      "label": "DeeBaby artist",
+      "uri": "spotify:artist:6jxLcPfLvVwcz7bmzOWwwE",
+      "from": "open.spotify.com/artist/6jxLcPfLvVwcz7bmzOWwwE",
+      "weight": 3
+    },
+    {
+      "id": "htown",
+      "label": "H-Town frequency (SFHS)",
+      "uri": "spotify:playlist:6EN5jR0b57rqUaGuCoZhtD",
+      "from": "sellersfirsthomesolutions.com",
+      "weight": 3
+    },
+    {
+      "id": "drake-wayne-mix",
+      "label": "Drake Mix (feat Lil Wayne / Young Money)",
+      "uri": "spotify:playlist:37i9dQZF1EIWR2Z7ggXEKn",
+      "from": "Spotify library Drake Mix",
+      "weight": 3
+    },
+    {
+      "id": "drake-wayne-search",
+      "label": "Drake + Lil Wayne search",
+      "uri": "spotify:search:Drake%20Lil%20Wayne",
+      "from": "Maxwell desk ask 2026-09-16",
+      "weight": 2
+    },
+    {
+      "id": "logan-orbit-artists",
+      "label": "Everybody around Logan/DeeBaby (artist search)",
+      "uri": "spotify:search:DeeBaby%20Millyz%20BigWalkDog%20THE%20REAL%201%20Mg%20Lil%20Bubba%20xCamden%20NoHeart%20Shad",
+      "from": "artists named on DeeBaby Mix / radios in library cache",
+      "weight": 3
+    },
+    {
+      "id": "rapcaviar",
+      "label": "RapCaviar",
+      "uri": "spotify:playlist:37i9dQZF1DX0XUsuxWHRQd",
+      "from": "agent pick",
+      "weight": 1
+    }
+  ],
+  "personal_slots": [
+    {
+      "id": "logan-main-playlist",
+      "label": "Logan main playlist URI (paste if different)",
+      "uri": "spotify:playlist:3w55ItlH4pvaQbxoLsXtrj",
+      "from": "Defaulted to DeeBaby's hardest tracks from library — replace if Logan has a different main list",
+      "weight": 5
+    },
+    {
+      "id": "maxwell-personal",
+      "label": "Maxwell personal (paste URI)",
+      "uri": "",
+      "from": "Maxwell — optional",
+      "weight": 0
+    }
+  ]
+}
