@@ -72,3 +72,8 @@ Dormant GitHub remotes: `bash ~/bin/archive-dormant-github-repos.sh` (also copie
 No self-hosted worker is registered until the MSI runs the bootstrap. Phone showing **No Personal Machines Available** is expected until then.
 
 See [BLOCKED.md](./BLOCKED.md).
+
+## GitHub-side orchestration assessment
+
+See [gh-aw v0.90.3 fit assessment](docs/gh-aw-fit.md) for the decision to defer
+queues and ledgers until a verified handoff gap justifies an integration.
