@@ -72,3 +72,9 @@ Dormant GitHub remotes: `bash ~/bin/archive-dormant-github-repos.sh` (also copie
 No self-hosted worker is registered until the MSI runs the bootstrap. Phone showing **No Personal Machines Available** is expected until then.
 
 See [BLOCKED.md](./BLOCKED.md).
+
+## Desk DJ (original MSI Windows installation)
+
+Spotify schedule, anti-repeat selection and 25% Windows volume behavior are
+tracked separately from worker setup. See [Desk DJ](docs/desk-dj.md) for commands,
+installed drift, tests and Linux limitations.
