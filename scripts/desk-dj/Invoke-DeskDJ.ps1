@@ -248,24 +248,50 @@ function Invoke-Rotate {
   Invoke-PlayUri -Uri ([string]$source.uri) -Label ([string]$source.label) -Config $config
 }
 
+function Invoke-DeskScheduler([string]$Operation, [string]$TaskName, [string[]]$Arguments) {
+  # Windows PowerShell reports native stderr as ErrorRecord objects. Capture it
+  # without terminating before we can read the actual native exit status.
+  $ErrorActionPreference = 'Continue'
+  $PSNativeCommandUseErrorActionPreference = $false
+  $global:LASTEXITCODE = $null
+  $output = @(schtasks @Arguments 2>&1)
+  $exitCode = $LASTEXITCODE
+  if ($null -eq $exitCode -or $exitCode -ne 0) {
+    throw ("Task Scheduler {0} failed for '{1}' (exit {2}): {3}" -f
+      $Operation, $TaskName, $exitCode, ($output -join [Environment]::NewLine))
+  }
+  $output | Out-Host
+}
+
 function Install-Schedule {
   $ps1 = Join-Path $Root 'Invoke-DeskDJ.ps1'
   $pwsh = Join-Path $env:SystemRoot 'System32\WindowsPowerShell\v1.0\powershell.exe'
   # Start 09:00
-  schtasks /Create /F /TN 'SFHS-DeskDJ-Start' /SC DAILY /ST 09:00 /RL LIMITED /TR "`"$pwsh`" -NoProfile -ExecutionPolicy Bypass -File `"$ps1`" -Action start" | Out-Host
+  Invoke-DeskScheduler -Operation Create -TaskName 'SFHS-DeskDJ-Start' -Arguments @(
+    '/Create','/F','/TN','SFHS-DeskDJ-Start','/SC','DAILY','/ST','09:00','/RL','LIMITED',
+    '/TR',"`"$pwsh`" -NoProfile -ExecutionPolicy Bypass -File `"$ps1`" -Action start")
   # Stop 19:00
-  schtasks /Create /F /TN 'SFHS-DeskDJ-Stop' /SC DAILY /ST 19:00 /RL LIMITED /TR "`"$pwsh`" -NoProfile -ExecutionPolicy Bypass -File `"$ps1`" -Action stop" | Out-Host
+  Invoke-DeskScheduler -Operation Create -TaskName 'SFHS-DeskDJ-Stop' -Arguments @(
+    '/Create','/F','/TN','SFHS-DeskDJ-Stop','/SC','DAILY','/ST','19:00','/RL','LIMITED',
+    '/TR',"`"$pwsh`" -NoProfile -ExecutionPolicy Bypass -File `"$ps1`" -Action stop")
   # Rotates
   foreach ($h in @('11:00','13:00','15:00','17:00')) {
     $name = 'SFHS-DeskDJ-Rotate-' + ($h.Replace(':',''))
-    schtasks /Create /F /TN $name /SC DAILY /ST $h /RL LIMITED /TR "`"$pwsh`" -NoProfile -ExecutionPolicy Bypass -File `"$ps1`" -Action rotate" | Out-Host
+    Invoke-DeskScheduler -Operation Create -TaskName $name -Arguments @(
+      '/Create','/F','/TN',$name,'/SC','DAILY','/ST',$h,'/RL','LIMITED',
+      '/TR',"`"$pwsh`" -NoProfile -ExecutionPolicy Bypass -File `"$ps1`" -Action rotate")
   }
   Write-Log 'SCHEDULE installed (Start 09:00, Rotate 11/13/15/17, Stop 19:00)'
 }
 
 function Uninstall-Schedule {
+  # Enumerate successfully before treating absence as harmless. A failed query
+  # (access denial, unavailable scheduler, etc.) must not look like a missing task.
+  # Avoid interpreting localized schtasks error text as a not-found result.
+  $installed = @(Get-ScheduledTask -TaskPath '\' -ErrorAction Stop)
   foreach ($tn in @('SFHS-DeskDJ-Start','SFHS-DeskDJ-Stop','SFHS-DeskDJ-Rotate-1100','SFHS-DeskDJ-Rotate-1300','SFHS-DeskDJ-Rotate-1500','SFHS-DeskDJ-Rotate-1700')) {
-    schtasks /Delete /F /TN $tn 2>$null | Out-Null
+    if ($installed.TaskName -notcontains $tn) { continue }
+    Invoke-DeskScheduler -Operation Delete -TaskName $tn -Arguments @('/Delete','/F','/TN',$tn)
   }
   Write-Log 'SCHEDULE removed'
 }

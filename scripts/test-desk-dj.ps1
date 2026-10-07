@@ -40,8 +40,28 @@ foreach ($case in @(@{time='08:59:59';want=$false},@{time='09:00:00';want=$true}
 }
 # Capture task arguments; never invoke Task Scheduler.
 $script:tasks=[System.Collections.Generic.List[string]]::new()
-function schtasks { $script:tasks.Add(($args -join ' ')) }
-function Write-Log { param($Message) }
+$script:logs=[System.Collections.Generic.List[string]]::new()
+$script:failAt=0
+$script:noExitCode=$false
+function schtasks {
+  $script:tasks.Add(($args -join ' '))
+  if ($script:noExitCode) { Write-Error 'Scheduler could not execute'; return }
+  $global:LASTEXITCODE=0
+  if ($script:tasks.Count -eq $script:failAt) {
+    $global:LASTEXITCODE=5
+    Write-Error 'Access is denied.'
+  }
+}
+function Write-Log { param($Message) $script:logs.Add($Message) }
+$script:taskNames=@('SFHS-DeskDJ-Start','SFHS-DeskDJ-Stop','SFHS-DeskDJ-Rotate-1100',
+  'SFHS-DeskDJ-Rotate-1300','SFHS-DeskDJ-Rotate-1500','SFHS-DeskDJ-Rotate-1700')
+$script:presentTasks=$script:taskNames
+$script:queryFailure=$false
+function Get-ScheduledTask { param($TaskPath,$ErrorAction)
+  Assert ($TaskPath -eq '\' -and $ErrorAction -eq 'Stop') 'Inventory query must fail closed'
+  if ($script:queryFailure) { throw 'Task Scheduler unavailable' }
+  foreach ($name in $script:presentTasks) { [pscustomobject]@{TaskName=$name} }
+}
 $Root=$PSScriptRoot; $env:SystemRoot=$PSScriptRoot
 Install-Schedule
 Assert ($script:tasks.Count -eq 6) 'Expected six tasks'
@@ -55,6 +75,42 @@ foreach ($pair in @(@('Start','09:00','start'),@('Stop','19:00','stop'),
 }
 $script:tasks.Clear(); Uninstall-Schedule
 Assert ($script:tasks.Count -eq 6) 'Expected six task removals'
+Assert ($script:logs.Count -eq 2) 'Successful install/uninstall must log completion'
+# Each create and delete position must propagate native failure, including stderr,
+# and suppress the completion log. No actual scheduler or audio is touched.
+foreach ($operation in @('Create','Delete')) {
+  foreach ($position in 1..6) {
+    $script:tasks.Clear(); $script:logs.Clear(); $script:failAt=$position
+    $message=$null
+    try {
+      if ($operation -eq 'Create') { Install-Schedule } else { Uninstall-Schedule }
+    } catch { $message=$_.Exception.Message }
+    Assert ($message -like "*Task Scheduler $operation failed*" -and
+      $message.Contains($script:taskNames[$position-1]) -and
+      $message.Contains('exit 5') -and $message.Contains('Access is denied.')) 'Native failure lost diagnostics'
+    Assert ($script:tasks.Count -eq $position) 'Commands continued after native failure'
+    Assert ($script:logs.Count -eq 0) 'Failed schedule operation logged success'
+  }
+}
+$script:failAt=0
+# An invocation that never supplies a native result must not reuse stale success.
+$script:noExitCode=$true; $global:LASTEXITCODE=0
+$script:tasks.Clear(); $script:logs.Clear()
+$threw=$false; try { Install-Schedule } catch { $threw=$true }
+Assert ($threw -and $script:logs.Count -eq 0) 'Missing native exit reused stale success'
+$script:noExitCode=$false
+# A successfully queried empty/partial inventory is idempotent.
+foreach ($present in @(@(),@('SFHS-DeskDJ-Rotate-1300'))) {
+  $script:presentTasks=$present; $script:tasks.Clear(); $script:logs.Clear()
+  Uninstall-Schedule
+  Assert ($script:tasks.Count -eq $present.Count) 'Uninstall tried deleting absent tasks'
+  Assert ($script:logs.Count -eq 1 -and $script:logs[0] -eq 'SCHEDULE removed') 'Idempotent uninstall failed'
+}
+$script:queryFailure=$true; $script:tasks.Clear(); $script:logs.Clear()
+$threw=$false; try { Uninstall-Schedule } catch { $threw=$true }
+Assert $threw 'Inventory failure was treated as absence'
+Assert ($script:tasks.Count -eq 0 -and $script:logs.Count -eq 0) 'Inventory failure deleted or logged success'
+$script:queryFailure=$false; $script:presentTasks=$script:taskNames
 function Get-Config { $config }
 function Select-Source { param($Config) $Config.sources[0] }
 $script:plays=0
@@ -69,4 +125,4 @@ Assert ($script:plays -eq 3) 'Manual start must remain allowed outside window'
 $play=($functions | Where-Object Name -eq 'Invoke-PlayUri').Extent.Text
 $volumeAt=$play.IndexOf('Set-DeskPlaybackVolume $Config')
 Assert ($volumeAt -ge 0 -and $volumeAt -lt $play.IndexOf('Start-Process $Uri')) 'Volume must precede playback'
-'PASS parse, weighted anti-repeat, window, schedule, volume and entrypoints'
+'PASS parse, weighted anti-repeat, window, schedule success/failure/idempotence, volume and entrypoints'
