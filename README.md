@@ -73,8 +73,10 @@ No self-hosted worker is registered until the MSI runs the bootstrap. Phone show
 
 See [BLOCKED.md](./BLOCKED.md).
 
-## Desk DJ (original MSI Windows installation)
+## Desk DJ (Windows source and live Linux adapter)
 
 Spotify schedule, anti-repeat selection and 25% Windows volume behavior are
 tracked separately from worker setup. See [Desk DJ](docs/desk-dj.md) for commands,
-installed drift, tests and Linux limitations.
+installed drift, tests and Linux activation.
+
+Linux: `bash scripts/install-desk-dj-linux.sh`, then `desk-dj status`.

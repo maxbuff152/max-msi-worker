@@ -1,7 +1,7 @@
 # Desk DJ consolidation
 
 Desk DJ is extracted onto main without PR #13's worker parking or PR #15's
-fleet status. This is source reconciliation, not a Linux music port or activation.
+fleet status. The original consolidation was source-only. The October 7 follow-up adds and activates the Linux adapter below.
 
 ## Preserved commands and behavior
 
@@ -80,3 +80,27 @@ Script bytes match the inspected installation; config semantics match it.
 No live Windows installation, Linux timer, audio setting or worker was changed.
 COM/SMTC hardware behavior was not re-tested under Linux.
 Rollback is closing this PR or reverting its consolidation commit after merge.
+
+## Linux activation (October 7 follow-up)
+
+`bash scripts/install-desk-dj-linux.sh` installs an immutable source copy under
+`~/.local/share/maxwell/desk-dj`, a `~/.local/bin/desk-dj` command and three user
+timers. Install does not start playback. It backs up any previous adapter/config.
+`desk-dj now|start|rotate|stop|status` uses existing Jarvis local Spotify controls
+from `~/Projects/active/jarvis/jarvis_modes.py`, without modifying Jarvis.
+
+The native adapter uses the preserved config, weighted URI exclusion and explicit
+America/Chicago clock. Systemd timers fire start at 09:00, rotates at 11/13/15/17
+and stop at 19:00; no catch-up playback on login (`Persistent=false`). Timers need
+the logged-in desktop user session and installed Spotify Flatpak/Jarvis owner.
+Start/rotate unmute and set the default PipeWire sink to 25%, verifying readback.
+Spotify must report Playing before source history advances. Spotify search URIs
+may require UI selection; failures are reported rather than recorded as success.
+A lock prevents concurrent Desk DJ actions. No Windows installation is modified.
+
+The Python test uses temporary state and fake desktop controls: anti-repeat,
+window edges, volume bounds, manual outside-window start and failed-play state
+preservation. Run `python3 scripts/test-desk-dj-linux.py`.
+Disable via `systemctl --user disable --now maxwell-desk-dj-start.timer
+maxwell-desk-dj-rotate.timer maxwell-desk-dj-stop.timer`; pause with `desk-dj stop`.
+Disabling does not delete playlist/history. Restore an installation backup if needed.
