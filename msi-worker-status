@@ -1,8 +1,14 @@
 #!/usr/bin/env bash
 # Show MSI worker-dir map. Does not restart a live worker.
 set -euo pipefail
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# Prefer the machine helper; fall back to the repo copy (next to this script, or
+# the usual clone when this script was installed to ~/bin on its own), the same
+# way start-max-msi.sh does.
 # shellcheck source=/dev/null
-source "$HOME/bin/msi-worker-dirs.sh"
+source "${HOME}/bin/msi-worker-dirs.sh" 2>/dev/null \
+  || source "$ROOT/msi-worker-dirs.sh" 2>/dev/null \
+  || source "${HOME}/Projects/active/max-msi-worker/msi-worker-dirs.sh"
 
 echo "=== MSI worker-dir map ==="
 printf '%s\n' "${MSI_WORKER_DIRS[@]}"
