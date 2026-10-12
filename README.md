@@ -117,3 +117,11 @@ failed/unsafe updates, the shared launch command's three directory arguments,
 and duplicate-session handling. They do not install a real CLI, log in, or change
 Task Scheduler. A Windows/Ubuntu run is still needed to confirm the complete
 interactive double-click/login flow and legacy task cleanup on the target machine.
+
+## Desk DJ (Windows source and live Linux adapter)
+
+Spotify schedule, anti-repeat selection and 25% Windows volume behavior are
+tracked separately from worker setup. See [Desk DJ](docs/desk-dj.md) for commands,
+installed drift, tests and Linux activation.
+
+Linux: `bash scripts/install-desk-dj-linux.sh`, then `desk-dj status`.
