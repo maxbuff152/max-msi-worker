@@ -5,9 +5,14 @@ title Max-MSI bootstrap
 echo.
 echo === Max-MSI Cursor worker bootstrap ===
 echo This will open WSL/Ubuntu, log into Cursor, and start worker Max-MSI.
-echo Keep the resulting window open and leave the PC awake.
+echo The worker runs in WSL tmux. Leave the PC awake.
 echo.
-powershell -NoProfile -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/maxbuff152/max-msi-worker/main/bootstrap-max-msi.ps1 | iex"
+if exist "%~dp0bootstrap-max-msi.ps1" (
+  powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0bootstrap-max-msi.ps1"
+) else (
+  powershell -NoProfile -ExecutionPolicy Bypass -Command "irm https://raw.githubusercontent.com/maxbuff152/max-msi-worker/main/bootstrap-max-msi.ps1 | iex"
+)
+if errorlevel 1 echo Setup failed. Read the error above before retrying.
 echo.
-echo If nothing stayed open, open Ubuntu WSL and run: bash ~/projects/max-msi-worker/start-max-msi.sh
+echo If nothing stayed open, open Ubuntu WSL and run: bash ~/Projects/active/max-msi-worker/start-max-msi.sh
 pause

@@ -45,3 +45,12 @@ Agents cannot finish these. Leave unchecked until Maxwell does them:
 4. **Enable Builds** — Cloud Agents → **SellersFirstWebsite** environment → **Enable Builds** (env PR may already be merged; UI click still required)
 
 Do **not** treat any of the four as complete until Maxwell confirms.
+
+## Entrypoint repair (2026-10-07)
+
+Bootstrap and double-click setup now converge on `start-max-msi.sh` in WSL Ubuntu.
+The old Windows-native autostart installer is a cleanup-only script: it disables
+and stops `Cursor-Max-MSI-Worker`, without registering a replacement. The ABI patch
+script is retired. Existing machines need that cleanup run once; this source
+change alone does not disable a previously installed task. Historical September
+status/checklists above are retained, not fresh runtime verification.
